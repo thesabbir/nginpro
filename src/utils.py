@@ -9,8 +9,8 @@ format key value prefix
 
 def kv_format(pre, key, value):
     if pre == '':
-        return '{} : {};'.format(key, value)
-    return '{} : {} {};'.format(pre, key, value)
+        return "{} {};\n".format(key, value)
+    return "{} {} {};\n".format(pre, key, value)
 
 
 """
@@ -27,3 +27,18 @@ def to_nginx_template(d):
         else:
             template += kv_format('', key, value)
     return template
+
+
+def make_indent(contents):
+    indents = '    '
+    lines = map(str.strip, contents.splitlines())
+    current_indent = 0
+    for index, line in enumerate(lines):
+        if line.endswith('}'):
+            current_indent -= 1
+        lines[index] = current_indent * indents + line
+
+        if line.endswith('{'):
+            current_indent += 1
+
+    return '\n'.join(lines)
