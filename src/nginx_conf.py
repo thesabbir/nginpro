@@ -69,7 +69,7 @@ mime_types = {
 
 fastcgi_conf = {
     'fastcgi_index': 'index.php',
-    'fastcgi_pass': 'http://host',
+    'fastcgi_pass': 'http://localhost:2790',
     'fastcgi_param': {
         'SCRIPT_FILENAME': ' $document_root$fastcgi_script_name',
         'QUERY_STRING': '$query_string',
@@ -94,7 +94,7 @@ fastcgi_conf = {
 
 server = {
     'listen': '80',
-    'server_name': 'name.com',
+    'server_name': 'localhost',
     'access_log': 'access_log',
     'error_log': 'error_log',
     'root': 'html',
