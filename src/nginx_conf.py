@@ -4,6 +4,7 @@ Templates will be generated from this
 """
 
 reverse_proxy = {
+    'proxy_pass': 'http://localhost:2369',
     'proxy_redirect': 'off',
     'proxy_set_header': {
         'Host': '$host',
