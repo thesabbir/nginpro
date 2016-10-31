@@ -4,6 +4,8 @@ from string import Template
 """
 Subclassing template class
 """
+
+
 class NginTemplate(Template):
     delimiter = '#'
 
@@ -31,7 +33,6 @@ server {
 Initiate argparse
 """
 parser = argparse.ArgumentParser()
-
 
 """
 Add arguments
