@@ -1,33 +1,7 @@
 import argparse
-from string import Template
-
-"""
-Subclassing template class
-"""
-
-
-class NginTemplate(Template):
-    delimiter = '#'
-
-
-"""
-Reverse Proxy Template
-"""
-reverse_proxy_template = """
-server {
-    listen 80;
-    server_name #{server_name};
-    access_log /var/log/nginx/#{server_name}.access.log;
-    error_log /var/log/nginx/#{server_name}.error.log;
-
-    location  / {
-        proxy_pass #{proxy_pass};
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-}"""
+from nginx_conf import server, reverse_proxy
+from nginx_blocks import make_location_block, make_server_block
+from utils import to_nginx_template, make_indent
 
 """
 Initiate argparse
@@ -53,6 +27,9 @@ Usage Example: ngin.py -r -n example.com -p http://localhost:9000
 if args.revproxy:
     if args.name is None or args.proxypass is None:
         raise SystemExit('Name and Pass is required!')
-    params = {'server_name': args.name, 'proxy_pass': args.proxypass}
-    conf = NginTemplate(reverse_proxy_template).safe_substitute(params)
-    print conf
+    server['server_name'] = args.name
+    reverse_proxy['proxy_pass'] = args.proxypass
+    location = make_location_block(to_nginx_template(reverse_proxy), '/')
+    server = to_nginx_template(server)
+    conf = make_server_block('{} {}'.format(server, location))
+    print make_indent(conf)
