@@ -1,9 +1,9 @@
 from distutils.core import setup
 
 setup(
-    name='nginxpro',
+    name='nginpro',
     version='0.0.1',
-    packages=['nginxpro'],
+    packages=['nginpro'],
     license='MIT',
     long_description="nginx configuration tool",
 )
