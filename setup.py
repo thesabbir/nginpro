@@ -9,7 +9,5 @@ setup(
     author="Sabbir Ahmed",
     author_email="sabbiirr@gmail.com",
     url="https://github.com/thesabbir/nginpro",
-    entry_points={
-        "console_scripts": ['nginpro = nginpro']
-    },
+    scripts=["bin/nginpro"]
 )
