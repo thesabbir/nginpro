@@ -6,4 +6,7 @@ setup(
     packages=['nginpro'],
     license='MIT',
     long_description="nginx configuration tool",
+    author="Sabbir Ahmed",
+    author_email="sabbiirr@gmail.com",
+    url="https://github.com/thesabbir/nginpro"
 )
