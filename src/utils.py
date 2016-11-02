@@ -3,30 +3,24 @@ Utilities
 """
 
 """
-format key value prefix
-"""
-
-
-def kv_format(pre, key, value):
-    if pre == '':
-        return "{} {};\n".format(key, value)
-    return "{} {} {};\n".format(pre, key, value)
-
-
-"""
 Takes a python dictionary and converts it to nginx compatible configuration block
 """
 
 
-def to_nginx_template(d):
+def to_nginx_template(config):
     template = ''
-    for key, value in d.items():
+    for key, value in config.iteritems():
         if isinstance(value, dict):
             for key2, value2 in value.items():
-                template += kv_format(key, key2, value2)
+                template += "{} {} {};\n".format(key, key2, value)
         else:
-            template += kv_format('', key, value)
+            template += "{} {};\n".format(key, value)
     return template
+
+
+"""
+nginx configuration indentation
+"""
 
 
 def make_indent(contents):
