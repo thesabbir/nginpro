@@ -1,3 +1,8 @@
+.PHONY: test clean
+
+test:
+	python test
+
 dist:
 	python setup.py sdist
 
