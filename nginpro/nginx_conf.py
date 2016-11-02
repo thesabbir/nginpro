@@ -153,3 +153,8 @@ ssl_conf = {
     'ssl_stapling': 'on',
     'ssl_stapling_verify': 'on'
 }
+
+ssl_redirect = {
+    'return': '301 https://$server_name$request_uri'
+}
+
