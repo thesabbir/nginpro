@@ -1,6 +1,20 @@
 """
 Utilities
 """
+from string import Template
+
+"""
+Generate configuration blocks
+"""
+
+
+def make_block(name, content, pattern=""):
+    return Template("""
+        ${name} ${pattern} {
+            ${content}
+        }
+    """).safe_substitute(name=name, content=content, pattern=pattern)
+
 
 """
 Takes a python dictionary and converts it to nginx compatible configuration block
@@ -8,11 +22,11 @@ Takes a python dictionary and converts it to nginx compatible configuration bloc
 
 
 def to_nginx_template(config):
-    template = ''
+    template = ""
     for key, value in config.iteritems():
         if isinstance(value, dict):
-            for key2, value2 in value.items():
-                template += "{} {} {};\n".format(key, key2, value)
+            for key2, value2 in value.iteritems():
+                template += "{} {} {};\n".format(key, key2, value2)
         else:
             template += "{} {};\n".format(key, value)
     return template
