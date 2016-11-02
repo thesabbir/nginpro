@@ -9,11 +9,12 @@ Generate configuration blocks
 
 
 def make_block(name, content, pattern=""):
-    return Template("""
+    return Template(
+        """
         ${name} ${pattern} {
             ${content}
         }
-    """).safe_substitute(name=name, content=content, pattern=pattern)
+        """).safe_substitute(name=name, content=content, pattern=pattern)
 
 
 """
