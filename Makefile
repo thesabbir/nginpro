@@ -3,6 +3,7 @@ dist:
 
 clean:
 	rm -rf dist/*
+	rm -rf ./**/*.pyc
 
 install:
 	pip install dist/*
