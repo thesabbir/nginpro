@@ -4,6 +4,5 @@ bin/nginpro
 nginpro/__init__.py
 nginpro/__main__.py
 nginpro/ngin.py
-nginpro/nginx_blocks.py
 nginpro/nginx_conf.py
 nginpro/utils.py
