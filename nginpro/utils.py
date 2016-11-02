@@ -50,3 +50,28 @@ def make_indent(contents):
             current_indent += 1
 
     return '\n'.join(lines)
+
+
+"""
+Get nginx config args
+"""
+
+
+def get_nginx_config_args():
+    # TODO: make this more pythonic
+    import subprocess
+    import re
+    options = {}
+    try:
+        process = subprocess.Popen(['nginx', '-V'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        err, out = process.communicate()
+        matches = re.findall('--([^\s]+)', out)
+        for option in matches:
+            if '=' in option:
+                v = option.split('=')
+                options[v[0]] = v[1]
+            else:
+                options[option] = True
+    except OSError:
+        print 'Nginx is not installed or not in $PATH'
+    return options
