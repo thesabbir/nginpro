@@ -93,10 +93,23 @@ fastcgi_conf = {
     }
 }
 
+uwsgi_conf = {
+    'uwsgi_pass': '127.0.0.1:5000'
+}
+
 server = {
     'listen': '80',
     'server_name': 'localhost',
     'root': 'html',
+}
+
+http = {
+    'sendfile': ' on',
+    'keepalive_timeout': 65
+}
+
+events = {
+    'worker_connections': 1024
 }
 
 log = {
@@ -107,4 +120,3 @@ log = {
 restrict = {
     'deny': 'all'
 }
-
