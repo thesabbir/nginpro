@@ -1,7 +1,6 @@
 import argparse
 from nginx_conf import server, reverse_proxy
-from nginx_blocks import make_location_block, make_server_block
-from utils import to_nginx_template, make_indent
+from utils import to_nginx_template, make_indent, make_block
 
 """
 Initiate argparse
@@ -22,14 +21,15 @@ args = parser.parse_args()
 
 """
 Reverse proxy config generator
-Usage Example: ngin.py -r -n example.com -p http://localhost:9000
 """
 if args.revproxy:
     if args.name is None or args.proxypass is None:
         raise SystemExit('Name and Pass is required!')
     server['server_name'] = args.name
     reverse_proxy['proxy_pass'] = args.proxypass
-    location = make_location_block(to_nginx_template(reverse_proxy), '/')
+    to_nginx_template(reverse_proxy)
+    location = make_block(name="location", content=to_nginx_template(reverse_proxy), pattern='/')
     server = to_nginx_template(server)
-    conf = make_server_block('{} {}'.format(server, location))
+    block = '{} {}'.format(server, location)
+    conf = make_block(name="server", content=block, pattern="")
     print make_indent(conf)
