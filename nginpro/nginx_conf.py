@@ -96,7 +96,15 @@ fastcgi_conf = {
 server = {
     'listen': '80',
     'server_name': 'localhost',
-    'access_log': 'access_log',
-    'error_log': 'error_log',
     'root': 'html',
 }
+
+log = {
+    'access_log': 'access_log',
+    'error_log': 'error_log',
+}
+
+restrict = {
+    'deny': 'all'
+}
+
